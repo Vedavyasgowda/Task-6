@@ -1,98 +1,75 @@
 
-#  Task 6: Sales Trend Analysis Using SQL Aggregations
+## Task 5: Exploratory Data Analysis (EDA) – Titanic Dataset
 
-##  Objective
-The objective of this task is to analyze **monthly sales revenue** and **order volume** using SQL. The goal is to derive time-based insights from transaction data using aggregate functions like `SUM()`, `COUNT()`, and grouping logic (`GROUP BY YEAR/MONTH`).
-
----
-
-##  Tools Used
-- MySQL Workbench
-- SQL (MySQL syntax)
+## Objective
+This task involved performing **Exploratory Data Analysis (EDA)** on a real-world dataset (Titanic dataset) using Python. The goal was to discover patterns, relationships, and outliers that might inform future predictive modeling.
 
 ---
 
-## Dataset Overview
-
-- **Table Name:** `online_sales`
-- **Columns:**
-  - `order_id`: Unique order identifier
-  - `order_date`: Date of the order
-  - `amount`: Revenue from the order
-  - `product_id`: Identifier for the product sold
+## Tools Used
+- Python 3
+- Jupyter Notebook
+- Pandas
+- Matplotlib
+- Seaborn
 
 ---
 
-##  SQL Steps Executed
-
-### 1. **Database and Table Creation**
-sql
-CREATE DATABASE sales_db;
-USE sales_db;
-
-CREATE TABLE online_sales (
-    order_id INT,
-    order_date DATE,
-    amount DECIMAL(10, 2),
-    product_id INT
-);
-
-
-### 2. **Sample Data Insertion**
-- Inserted 15 rows of sales data across 8 months in 2023.
-
-### 3. **Basic Table View**
-sql
-SELECT * FROM online_sales;
-
-
-### 4. **Monthly Revenue and Order Volume**
-sql
-SELECT 
-    YEAR(order_date) AS year,
-    MONTH(order_date) AS month,
-    SUM(amount) AS total_revenue,
-    COUNT(DISTINCT order_id) AS order_volume
-FROM 
-    online_sales
-GROUP BY 
-    YEAR(order_date), MONTH(order_date)
-ORDER BY 
-    year, month;
-
-
-### 5. **Top 3 Months by Revenue**
-sql
-SELECT 
-    YEAR(order_date) AS year,
-    MONTH(order_date) AS month,
-    SUM(amount) AS total_revenue
-FROM 
-    online_sales
-GROUP BY 
-    YEAR(order_date), MONTH(order_date)
-ORDER BY 
-    total_revenue DESC
-LIMIT 3;
-
+##  Dataset Overview
+- File: `test.csv`
+- Dataset contains passenger-level information from the Titanic voyage.
+- Key columns:
+  - `PassengerId`, `Pclass`, `Name`, `Sex`, `Age`, `SibSp`, `Parch`, `Ticket`, `Fare`, `Cabin`, `Embarked`
 
 ---
 
-##  Insights
+## Steps Performed
 
-- Revenue was recorded for each month from January to August 2023.
-- Sales peaked in April and May.
-- The `GROUP BY` and aggregation functions allowed identifying trends over time.
-- The `ORDER BY` and `LIMIT` clauses helped rank top-performing months.
+1. **Data Loading & Inspection**
+   - Used `.head()`, `.info()`, `.describe()` to explore structure.
+
+2. **Missing Value Analysis**
+   - Identified nulls in `Age`, `Cabin`, and `Embarked`.
+
+3. **Univariate Analysis**
+   - Plotted histograms for numerical features like `Age` and `Fare`.
+   - Used countplots for `Sex`, `Pclass`, and `Embarked`.
+
+4. **Bivariate Analysis**
+   - Visualized relationships such as `Pclass` vs `Sex`, `Age` vs `Fare`.
+
+5. **Correlation Analysis**
+   - Used `.corr()` and `sns.heatmap()` to understand numeric relationships.
+
+6. **Outlier Detection**
+   - Boxplots helped highlight outliers in `Fare`.
+
+7. **Pairplot for Multivariate Analysis**
+   - Visualized relationships between `Age`, `Fare`, `SibSp`, `Pclass`.
 
 ---
 
-##  Files Included
+##  Key Insights
 
-- `VG TASK(6).sql` – SQL file with database creation, data, and analysis queries
-- `README.md` – This file
+- Majority of passengers were male and in 3rd class.
+- Fare and Age showed skewed distributions with visible outliers.
+- Positive correlation between Fare and Pclass.
+- Most passengers boarded from port **S**.
+- Missing values must be handled before predictive modeling.
 
 ---
+
+## Files Included
+
+- `VG TASK(5).ipynb` – Jupyter notebook containing the full EDA
+- `test.csv` – Titanic dataset used for analysis
+- `Task5_EDA_Report.pdf` – Clean PDF summary of insights
+
+---
+
+## Author
+**[Your Name]**  
+Data Analyst Intern  
 
 ##  Author
 
